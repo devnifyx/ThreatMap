@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Threat Map — MapLibre globe prototype</title>
+<!-- Pinned to 5.24.0: v6 is ESM-only and ships no script-tag build. Globe
+     projection, setSky and cluster expansion are all present in 5.x. -->
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css" />
+<script src="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/prototype.tsx"></script>
+</body>
+</html>
