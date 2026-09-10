@@ -1,0 +1,166 @@
+/* CasesPage.css — INVESTIGATIONS_PHASE1.md
+ *
+ * Supplemental, scoped (case-*) rules layered on ThreatIntelligencePage.css's
+ * ti-* system (the same convention KNOWLEDGE_BASE_PHASE1.md establishes:
+ * "Nothing here redefines a ti- or tb- class"). Reuses the existing dark +
+ * cyan design system: background #06070a / #14161d, accent --ui-accent
+ * (#00e5ff), the ti-card / ti-table / ti-badge / ti-filters / ti-pagination
+ * primitives. */
+
+.case-page { display: flex; flex-direction: column; height: 100%; }
+
+/* §57 CASE HEADER — case_number + title + status/severity/priority pills */
+.case-detail-header {
+    display: flex; flex-direction: column; gap: 8px; padding: 18px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06); flex-shrink: 0;
+}
+.case-detail-header-row1 {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+}
+.case-detail-number {
+    font-family: var(--font-mono, monospace), monospace; font-size: 0.95rem; font-weight: 700;
+    color: rgba(0, 229, 255, 0.92); letter-spacing: 0.04em; white-space: nowrap;
+}
+.case-detail-title { font-size: 1.15rem; font-weight: 700; color: #e6edf3; margin: 0; word-break: break-word; flex: 1; min-width: 0; }
+.case-detail-meta {
+    display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.82rem; color: rgba(148, 163, 184, 0.9);
+}
+.case-detail-meta span b { color: rgba(200, 208, 218, 0.95); font-weight: 700; }
+.case-pill-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.case-pill {
+    display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px;
+    border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.03em;
+}
+.case-pill--status-open         { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.case-pill--status-investigating{ background: rgba(210,153,34,0.15); color: #d29922; }
+.case-pill--status-pending      { background: rgba(163,113,247,0.15); color: #a371f7; }
+.case-pill--status-resolved     { background: rgba(63,185,80,0.15); color: #3fb950; }
+.case-pill--status-closed       { background: rgba(148,163,184,0.15); color: #8b949e; }
+.case-pill--status-archived     { background: rgba(148,163,184,0.1); color: rgba(148,163,184,0.7); }
+
+/* §57 tabs — Overview / Targets / Intelligence / Evidence / Timeline / Findings / Notes / Activity */
+.case-tabs { display: flex; gap: 4px; flex-wrap: wrap; padding: 0 20px; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+.case-tab {
+    background: transparent; border: none; border-bottom: 2px solid transparent;
+    color: rgba(148, 163, 184, 0.85); padding: 10px 14px; font-size: 0.82rem; font-weight: 700;
+    cursor: pointer; font-family: inherit; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.case-tab:hover { color: rgba(0, 229, 255, 0.9); }
+.case-tab--active { color: rgba(0, 229, 255, 0.95); border-bottom-color: rgba(0, 229, 255, 0.6); }
+.case-tab-count { margin-left: 4px; font-size: 0.68rem; color: rgba(148, 163, 184, 0.7); }
+
+.case-tab-body { padding: 18px 20px; overflow-y: auto; flex: 1; min-height: 0; }
+
+/* §57 create form (collapsible inline panel, same pattern as KB) */
+.case-create-form { display: flex; flex-direction: column; gap: 8px; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border); border-radius: var(--radius-md); margin-bottom: 12px; }
+.case-create-form-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-start; }
+.case-create-form textarea { width: 100%; min-height: 60px; resize: vertical; background: #0d0f14; border: 1px solid var(--ui-border); color: #e6edf3; border-radius: var(--radius-sm); padding: 6px 10px; font-size: 0.82rem; font-family: inherit; }
+.case-create-form textarea:focus { outline: none; border-color: rgba(0, 229, 255, 0.5); }
+.case-create-form select { min-width: 130px; }
+.case-create-form input[type="text"] { min-width: 200px; flex: 1; }
+
+/* §28 dashboard grid */
+.case-dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.case-dashboard-tile {
+    background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border);
+    border-radius: var(--radius-md); padding: 14px; cursor: pointer; text-align: left; font-family: inherit;
+}
+.case-dashboard-tile:hover { border-color: rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.04); }
+.case-dashboard-tile-value { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; color: #e6edf3; }
+.case-dashboard-tile-value--critical { color: #f85149; }
+.case-dashboard-tile-value--high { color: #d29922; }
+.case-dashboard-tile-label { margin-top: 6px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(148, 163, 184, 0.85); }
+
+/* §21 notes */
+.case-note { background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 10px; }
+.case-note-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.case-note-author { font-weight: 700; font-size: 0.82rem; color: rgba(200, 208, 218, 0.95); }
+.case-note-type { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; color: rgba(0, 229, 255, 0.7); }
+.case-note-time { font-size: 0.72rem; color: rgba(148, 163, 184, 0.75); }
+.case-note-body { font-size: 0.85rem; color: rgba(224, 224, 224, 0.9); white-space: pre-wrap; word-break: break-word; line-height: 1.5; }
+.case-note-actions { margin-top: 6px; display: flex; gap: 6px; }
+
+/* §23 findings */
+.case-finding { background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border); border-left: 3px solid rgba(0, 229, 255, 0.4); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 10px; }
+.case-finding-statement { font-size: 0.88rem; color: rgba(224, 224, 224, 0.95); line-height: 1.5; margin-bottom: 6px; }
+.case-finding-meta { display: flex; gap: 10px; align-items: center; font-size: 0.75rem; color: rgba(148, 163, 184, 0.85); flex-wrap: wrap; }
+.case-finding-evidence { font-size: 0.74rem; color: rgba(148, 163, 184, 0.8); margin-top: 4px; }
+
+/* §19 timeline */
+.case-timeline { display: flex; flex-direction: column; gap: 0; }
+.case-timeline-row { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.case-timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0, 229, 255, 0.5); margin-top: 6px; flex-shrink: 0; }
+.case-timeline-content { flex: 1; min-width: 0; }
+.case-timeline-action { font-size: 0.82rem; color: rgba(200, 208, 218, 0.95); text-transform: capitalize; }
+.case-timeline-detail { font-size: 0.75rem; color: rgba(148, 163, 184, 0.8); margin-top: 2px; }
+.case-timeline-time { font-size: 0.72rem; color: rgba(148, 163, 184, 0.65); }
+
+/* §13 target picker inline form */
+.case-add-target-form { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+.case-add-target-form select { min-width: 140px; }
+.case-add-target-form input[type="text"] { min-width: 160px; flex: 1; }
+
+/* §17 evidence search results inline list */
+.case-evidence-search { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.case-evidence-search-row { display: flex; gap: 8px; align-items: center; padding: 8px 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border); border-radius: var(--radius-sm); }
+.case-evidence-search-source { font-weight: 700; font-size: 0.8rem; color: rgba(200, 208, 218, 0.95); min-width: 0; flex: 1; }
+.case-evidence-search-desc { font-size: 0.75rem; color: rgba(148, 163, 184, 0.8); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* tag editor */
+.case-tag-editor { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.case-tag-input { background: #0d0f14; border: 1px solid var(--ui-border); color: #e6edf3; border-radius: var(--radius-sm); padding: 4px 8px; font-size: 0.78rem; min-width: 100px; }
+
+/* §36 closure form */
+.case-closure-form { display: flex; flex-direction: column; gap: 10px; }
+.case-closure-form textarea { width: 100%; min-height: 80px; resize: vertical; }
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * INVESTIGATIONS_PHASE2.md — Investigation Intelligence, Correlation,
+ * Hypotheses, Tasks & Analyst Workspace (same scoped case-* convention)
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* §39 finding title (above the statement) */
+.case-finding-title { font-size: 0.82rem; font-weight: 700; color: rgba(0, 229, 255, 0.9); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
+
+/* §12-§16 hypotheses — a finding card variant with an amber left edge
+ * (assumption, not conclusion) */
+.case-hypothesis { border-left-color: rgba(210, 153, 34, 0.5); }
+
+/* §14 supporting vs contradicting evidence columns */
+.case-hypothesis-evidence { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+.case-hypothesis-ev-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.case-hypothesis-ev-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.case-hypothesis-ev-title.supporting { color: rgba(63, 185, 80, 0.9); }
+.case-hypothesis-ev-title.contradicting { color: rgba(248, 81, 73, 0.9); }
+.case-hypothesis-ev-item {
+    display: flex; gap: 6px; align-items: center; padding: 6px 8px;
+    background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border);
+    border-radius: var(--radius-sm); font-size: 0.75rem;
+}
+.case-hypothesis-ev-item > span:first-child { font-weight: 700; color: rgba(200, 208, 218, 0.95); }
+.case-hypothesis-ev-desc { flex: 1; min-width: 0; color: rgba(148, 163, 184, 0.8); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.case-hypothesis-link { margin-top: 8px; }
+
+/* §5/§6 correlation — one block per case target */
+.case-correlation-target { margin-bottom: 14px; }
+.case-correlation-target-header {
+    display: flex; gap: 8px; align-items: baseline; padding: 8px 10px;
+    background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border);
+    border-radius: var(--radius-sm); margin-bottom: 6px;
+}
+.case-correlation-target-type {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: rgba(0, 229, 255, 0.8);
+}
+.case-correlation-target-label { font-size: 0.85rem; font-weight: 700; color: rgba(224, 224, 224, 0.95); word-break: break-word; }
+
+/* responsive */
+@media (max-width: 800px) {
+    .case-dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .case-hypothesis-evidence { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+    .case-dashboard-grid { grid-template-columns: 1fr; }
+    .case-tabs { overflow-x: auto; flex-wrap: nowrap; }
+}

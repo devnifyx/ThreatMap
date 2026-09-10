@@ -1,0 +1,388 @@
+.print-report-root {
+  display: none;
+}
+
+.print-report {
+  color: #111827;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.print-report__header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #d1d5db;
+}
+
+.print-report__intro {
+  max-width: 100%;
+}
+
+.print-report__eyebrow {
+  color: #0891b2;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.print-report__title {
+  margin: 6px 0 4px;
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.print-report__subtitle {
+  margin: 0;
+  color: #4b5563;
+}
+
+.print-report__target-panel {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.print-report__target-label {
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.print-report__target-value {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.print-report__meta {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 160px));
+  gap: 10px;
+}
+
+.print-report__meta div {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.print-report__meta dt {
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.print-report__meta dd {
+  margin: 4px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.print-report__summary {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
+  align-items: start;
+}
+
+.print-report__score-panel,
+.print-report__panel,
+.print-report__card {
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.print-report__score-panel {
+  padding: 18px 12px;
+  text-align: center;
+}
+
+.print-report__score {
+  font-size: 34px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.print-report__score-label {
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.print-report__summary-body {
+  padding: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.print-report__summary-body h2,
+.print-report__panel h2,
+.print-report__section h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.print-report__markdown p,
+.print-report__markdown ul,
+.print-report__markdown ol {
+  margin: 0 0 10px;
+}
+
+.print-report__analysis-grid,
+.print-report__cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.print-report__osint-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.print-report__panel {
+  padding: 16px;
+}
+
+.print-report__stack {
+  display: grid;
+  gap: 12px;
+}
+
+.print-report__item {
+  padding: 12px;
+  border-radius: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.print-report__item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.print-report__item-head h3 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.print-report__item-head span {
+  color: #0f766e;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.print-report__item p,
+.print-report__empty {
+  margin: 8px 0 0;
+  color: #374151;
+}
+
+.print-report__steps {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.print-report__steps li + li {
+  margin-top: 8px;
+}
+
+.print-report__section {
+  margin-top: 22px;
+  page-break-inside: avoid;
+}
+
+.print-report__notice {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid #fbbf24;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 11px;
+}
+
+.print-report__card {
+  padding: 14px;
+  page-break-inside: avoid;
+}
+
+.print-report__card--full-width {
+  grid-column: 1 / -1;
+}
+
+.print-report__table-wrap {
+  overflow-x: auto;
+}
+
+.print-report__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5px;
+}
+
+.print-report__table th,
+.print-report__table td {
+  padding: 6px 8px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.print-report__table th {
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+}
+
+.print-report__table tr:nth-child(even) td {
+  background: #f9fafb;
+}
+
+.print-report__dns-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.print-report__dns-group {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #f9fafb;
+}
+
+.print-report__dns-group-head {
+  font-size: 10.5px;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.print-report__dns-group-head strong {
+  color: #0891b2;
+}
+
+.print-report__dns-record {
+  font-size: 10px;
+  color: #111827;
+  overflow-wrap: anywhere;
+}
+
+.print-report__dns-record--empty {
+  font-style: italic;
+  color: #6b7280;
+}
+
+.print-report__card-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+.print-report__kv {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.print-report__kv-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px;
+}
+
+.print-report__kv-row dt {
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.print-report__kv-row dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.print-report__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.print-report__tag {
+  display: inline-flex;
+  padding: 4px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.print-report__osint-panel {
+  page-break-inside: avoid;
+}
+
+.print-report__osint-block + .print-report__osint-block {
+  margin-top: 12px;
+}
+
+.print-report__osint-block h4 {
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+@media print {
+  @page {
+    margin: 0.75in;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  #root {
+    display: none !important;
+  }
+
+  .print-report-root {
+    display: block !important;
+  }
+
+  .print-report {
+    display: block;
+  }
+}

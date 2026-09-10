@@ -1,0 +1,247 @@
+.client-portal {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #050608;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+}
+
+.client-portal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #0d1117;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.client-portal-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+.client-portal-logo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00e5ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.client-portal-subtitle {
+    font-size: 0.8rem;
+    color: #8b949e;
+}
+
+.client-portal-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.client-portal-header-right select {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    color: #e0e0e0;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.82rem;
+}
+.client-portal-username {
+    color: #8b949e;
+    font-size: 0.82rem;
+}
+.client-portal-logout {
+    background: transparent;
+    border: 1px solid rgba(255, 107, 107, 0.4);
+    color: #ff6b6b;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    cursor: pointer;
+}
+.client-portal-logout:hover { background: rgba(255, 107, 107, 0.1); }
+
+.client-portal-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+.client-portal-content h1 {
+    color: #00e5ff;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    margin: 0 0 1.5rem;
+}
+
+.client-portal-loading, .client-portal-empty-row {
+    text-align: center;
+    padding: 2rem;
+    color: #8b949e;
+    font-size: 0.85rem;
+}
+.client-portal-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+.client-portal-empty h2 { color: #e0e0e0; font-size: 1.1rem; margin-bottom: 0.5rem; }
+.client-portal-empty p { color: #8b949e; font-size: 0.9rem; }
+
+.client-portal-error {
+    margin-bottom: 1.25rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 6px;
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.55);
+    color: #fca5a5;
+    font-size: 0.85rem;
+}
+
+.client-portal-section {
+    margin-bottom: 2rem;
+}
+.client-portal-section h2 {
+    color: #00e5ff;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.75rem;
+}
+
+.client-portal-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.client-portal-case-status { color: #8b949e; font-size: 0.78rem; text-transform: capitalize; }
+
+.client-portal-case-row { flex-direction: column; align-items: stretch !important; gap: 0.5rem; }
+.client-portal-case-row-main { display: flex; justify-content: space-between; align-items: center; }
+.client-portal-case-row-main button {
+    background: transparent;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: #00e5ff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+.client-portal-evidence-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0 0 1rem;
+    border-top: 1px solid rgba(0, 229, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.client-portal-evidence-list li {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    color: #8b949e;
+}
+.client-portal-evidence-source { color: #e0e0e0; font-weight: 600; }
+.client-portal-evidence-list a { color: #00e5ff; }
+.client-portal-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.08);
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.client-portal-badge {
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.client-portal-badge.ready { background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.3); }
+.client-portal-badge.pending { background: rgba(255, 204, 0, 0.2); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.3); }
+
+.client-portal-corroboration {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    margin-top: 0.35rem;
+}
+.client-portal-corroboration-detail {
+    font-size: 0.72rem;
+    color: #8b949e;
+    text-transform: capitalize;
+}
+
+.client-portal-table {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.client-portal-thead, .client-portal-tr {
+    display: grid;
+    grid-template-columns: 1.2fr 100px 1.4fr 100px 100px 100px;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    align-items: center;
+    font-size: 0.82rem;
+}
+.client-portal-thead {
+    background: rgba(0, 0, 0, 0.2);
+    color: #8b949e;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+.client-portal-tr { border-bottom: 1px solid rgba(0, 229, 255, 0.08); }
+.client-portal-tr button {
+    background: transparent;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: #00e5ff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.client-portal-severity {
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.client-portal-severity.critical { background: rgba(255, 0, 85, 0.2); color: #ff0055; }
+.client-portal-severity.high { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+.client-portal-severity.medium { background: rgba(255, 204, 0, 0.2); color: #ffcc00; }
+.client-portal-severity.low { background: rgba(0, 229, 255, 0.15); color: #00e5ff; }
+.client-portal-severity.info { background: rgba(139, 148, 158, 0.2); color: #8b949e; }
+
+.client-portal-list li button {
+    background: transparent;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: #00e5ff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+.client-portal-report-detail {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #c9d1d9;
+}
+.client-portal-report-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+.client-portal-report-detail-header h3 { color: #00e5ff; margin: 0; font-size: 1rem; }
+.client-portal-report-detail p { margin: 0 0 0.85rem; }
+.client-portal-report-detail p strong { color: #e0e0e0; }

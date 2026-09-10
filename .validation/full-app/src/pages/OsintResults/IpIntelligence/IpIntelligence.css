@@ -1,0 +1,117 @@
+.iint-card {
+    background: #14161d;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    min-width: 0;
+    height: auto;
+}
+
+.iint-card-title {
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: rgba(0, 229, 255, 0.92);
+    margin-bottom: 10px;
+}
+
+.iint-card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.iint-card-title-row .iint-card-title { margin-bottom: 0; }
+
+.iint-kv {
+    display: grid;
+    grid-template-columns: minmax(150px, 1px) minmax(0, 1fr);
+    gap: 3px 1px;
+    align-items: start;
+}
+
+.iint-kv .k {
+    color: rgba(148, 163, 184, 0.92);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.iint-kv .v {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.9rem;
+}
+
+.iint-list {
+    margin: 0;
+    padding-left: 18px;
+    min-width: 0;
+    color: rgba(224, 224, 224, 0.88);
+}
+
+.iint-list li {
+    margin: 8px 0;
+    min-width: 0;
+}
+
+.iint-empty {
+    color: rgba(148, 163, 184, 0.92);
+    font-size: 0.95rem;
+}
+
+.iint-note {
+    color: rgba(224, 224, 224, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.iint-card--limited {
+    border-color: rgba(210, 153, 34, 0.35);
+    background: linear-gradient(180deg, rgba(210, 153, 34, 0.08), rgba(20, 22, 29, 0.9));
+}
+.iint-card--limited .iint-note {
+    color: rgba(255, 220, 150, 0.92);
+}
+
+.iint-ports-table {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.iint-ports-row {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    background: #14161d;
+    font-size: 0.88rem;
+}
+
+.iint-ports-row--head {
+    background: rgba(0, 229, 255, 0.06);
+    color: rgba(0, 229, 255, 0.9);
+    font-weight: 800;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.iint-ports-row > div:not([role="columnheader"]) {
+    color: rgba(224, 224, 224, 0.88);
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.iint-ports-row--dangerous {
+    box-shadow: inset 3px 0 0 rgba(239, 68, 68, 0.6);
+}

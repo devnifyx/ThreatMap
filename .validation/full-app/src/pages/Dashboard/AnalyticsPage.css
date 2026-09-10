@@ -1,0 +1,287 @@
+.analytics-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 28px 40px;
+    max-width: 1200px;
+}
+
+.analytics-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.analytics-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ── Analytics workspace shell (header + segmented tabs) — the outer
+   wrapper around whichever of Statistics/Trends/Analytics is mounted;
+   deliberately carries no padding/max-width of its own since each of
+   those three already supplies its own (see AnalyticsWorkspacePage.tsx). ── */
+
+.aw-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.aw-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 28px 0;
+}
+
+.aw-header-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; flex-shrink: 0; border-radius: 12px;
+    background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.3); color: #00e5ff;
+}
+
+.aw-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0;
+    color: #f1f5f9;
+    letter-spacing: -0.01em;
+}
+
+.aw-subtitle {
+    margin: 3px 0 0;
+    font-size: 0.82rem;
+    color: rgba(148, 163, 184, 0.75);
+}
+
+.aw-tabs {
+    display: inline-flex;
+    gap: 3px;
+    margin: 16px 28px 0;
+    padding: 3px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 11px;
+    width: fit-content;
+}
+
+.aw-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 15px;
+    color: rgba(148, 163, 184, 0.7);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.aw-tab:hover { color: #cbd5e1; }
+
+.aw-tab.active {
+    background: rgba(0, 229, 255, 0.14);
+    color: #00e5ff;
+    box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.35);
+}
+
+@media (max-width: 720px) {
+    .aw-header { padding: 18px 16px 0; }
+    .aw-tabs { margin: 14px 16px 0; overflow-x: auto; max-width: calc(100% - 32px); }
+}
+
+.analytics-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.analytics-card {
+    background: var(--card-bg, #0d1117);
+    border: 1px solid var(--border-color, #21262d);
+    border-radius: 8px;
+    padding: 18px 20px;
+}
+
+.analytics-card--wide {
+    width: 100%;
+}
+
+.analytics-card-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted, #8b949e);
+    margin-bottom: 14px;
+}
+
+.met-wrapper {
+    overflow-x: auto;
+}
+
+.met-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.met-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted, #8b949e);
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border-color, #21262d);
+}
+
+.met-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border-color, #21262d);
+    vertical-align: middle;
+}
+
+.met-table tr:last-child td {
+    border-bottom: none;
+}
+
+.met-table tr:hover td {
+    background: var(--hover-bg, rgba(255,255,255,0.03));
+}
+
+.met-module-name {
+    font-weight: 500;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.met-rate-cell {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.dow-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 680px) {
+    .dow-row { grid-template-columns: 1fr; }
+}
+
+.dow-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dow-chart-label {
+    font-size: 0.78rem;
+    color: var(--text-muted, #8b949e);
+    font-weight: 500;
+}
+
+.dow-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 90px;
+}
+
+.dow-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 3px;
+    height: 100%;
+}
+
+.dow-bar-track {
+    flex: 1;
+    width: 100%;
+    background: var(--border-color, #21262d);
+    border-radius: 3px 3px 0 0;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.dow-bar-fill {
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    min-height: 1px;
+    transition: height 0.25s;
+}
+
+.dow-bar-day {
+    font-size: 0.68rem;
+    color: var(--text-muted, #8b949e);
+    text-align: center;
+}
+
+.dow-bar-count {
+    font-size: 0.65rem;
+    color: var(--text-muted, #8b949e);
+    text-align: center;
+}
+
+.hour-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hour-chart-title {
+    font-size: 0.78rem;
+    color: var(--text-muted, #8b949e);
+}
+
+.hour-chart-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.hour-axis-label {
+    font-size: 8px;
+    fill: var(--text-muted, #8b949e);
+    font-family: inherit;
+}
+
+.hour-chart-note {
+    font-size: 0.72rem;
+    color: var(--text-muted, #8b949e);
+    text-align: right;
+}
+
+.analytics-empty {
+    font-size: 0.82rem;
+    color: var(--text-muted, #8b949e);
+    margin: 0;
+}
+
+.analytics-loading,
+.analytics-error {
+    padding: 40px 0;
+    color: var(--text-muted, #8b949e);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.analytics-error { color: #f85149; }

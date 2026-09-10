@@ -1,0 +1,218 @@
+.domain-tree-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.domain-tree-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.15s ease;
+}
+
+.domain-tree-header:hover {
+    background: rgba(0, 229, 255, 0.05);
+}
+
+.domain-tree-header:hover .domain-tree-title {
+    color: var(--primary-color);
+}
+
+.domain-tree-header-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--primary-color);
+}
+
+.domain-tree-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    flex: 1;
+}
+
+.domain-tree-title {
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    transition: color 0.15s ease;
+}
+
+.domain-tree-subtitle {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.domain-tree-chevron {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    transition: transform 0.2s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.domain-tree-header:hover .domain-tree-chevron {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.domain-tree-chevron--open {
+    transform: rotate(180deg);
+}
+
+.domain-tree-legend {
+    margin: 10px 16px 16px;
+}
+
+.domain-tree-node-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+}
+
+.domain-tree-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(13, 15, 19, 0.9);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background 0.15s ease;
+}
+
+.domain-tree-expand-btn:hover {
+    background: rgba(0, 229, 255, 0.1);
+}
+
+.domain-tree-canvas {
+    position: relative;
+    margin: 12px 16px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    transition: height 0.2s ease;
+}
+
+.domain-tree-svg {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+.domain-tree-svg:active {
+    cursor: grabbing;
+}
+
+.domain-tree-controls {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.domain-tree-controls button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13, 15, 19, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.domain-tree-controls button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.domain-tree-zoom-pct {
+    margin-top: 4px;
+    padding: 4px 6px;
+    background: rgba(13, 15, 19, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.domain-tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+}
+
+.domain-tree-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.domain-tree-legend i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+/* SVG-drawn tree elements */
+.tree-link {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 1.2px;
+}
+
+.tree-node-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    paint-order: stroke;
+    stroke: rgba(0, 0, 0, 0.7);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
+.tree-node-circle {
+    stroke-width: 1.5px;
+}

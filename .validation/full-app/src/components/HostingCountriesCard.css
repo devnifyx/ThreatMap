@@ -1,0 +1,32 @@
+.hosting-countries-header-wrap {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.hosting-countries-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 999px;
+    background: rgba(0, 229, 255, 0.04);
+}
+
+.hosting-countries-header .osint-title {
+    margin: 0;
+}
+
+.hosting-countries-count-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: rgba(245, 158, 11, 0.14);
+    color: var(--ui-warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    white-space: nowrap;
+}

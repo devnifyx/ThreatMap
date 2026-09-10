@@ -1,0 +1,137 @@
+.ssintel-page {
+    width: 100%;
+    min-height: 100%;
+    background-color: #050608;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+    padding: 1.5rem 2rem 2.5rem;
+}
+
+.ssintel-header h1 {
+    font-size: 1.25rem;
+    color: #00e5ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+.ssintel-header p {
+    font-size: 0.8rem;
+    color: #8b949e;
+    font-weight: 300;
+    margin: 0.25rem 0 1.25rem;
+    max-width: 70ch;
+}
+
+.ssintel-loading {
+    text-align: center;
+    padding: 2rem;
+    color: #8b949e;
+    font-size: 0.85rem;
+}
+
+.ssintel-error {
+    margin: 0 0 1rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 6px;
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.55);
+    color: #fca5a5;
+    font-size: 0.85rem;
+}
+
+.ssintel-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+.ssintel-toolbar select {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    color: #e0e0e0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    min-width: 200px;
+}
+
+.ssintel-badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.ssintel-badge.ready { background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.3); }
+.ssintel-badge.not-ready { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid rgba(255, 107, 107, 0.3); }
+
+.ssintel-section {
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 229, 255, 0.08);
+}
+.ssintel-section h2 {
+    color: #00e5ff;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.6rem;
+}
+
+.ssintel-table {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.ssintel-thead, .ssintel-tr {
+    display: grid;
+    grid-template-columns: 1.2fr 100px 1.4fr 100px 100px 100px;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    align-items: center;
+    font-size: 0.85rem;
+}
+.ssintel-thead {
+    background: rgba(0, 0, 0, 0.2);
+    color: #8b949e;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+.ssintel-tr { border-bottom: 1px solid rgba(0, 229, 255, 0.08); }
+.ssintel-tr:hover { background: rgba(0, 229, 255, 0.05); }
+.ssintel-tr button {
+    background: transparent;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: #00e5ff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+.ssintel-tr button:hover { background: rgba(0, 229, 255, 0.1); }
+
+.ssintel-severity {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.ssintel-severity.critical { background: rgba(255, 0, 85, 0.2); color: #ff0055; border: 1px solid rgba(255, 0, 85, 0.3); }
+.ssintel-severity.high { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid rgba(255, 107, 107, 0.3); }
+.ssintel-severity.medium { background: rgba(255, 204, 0, 0.2); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.3); }
+.ssintel-severity.low { background: rgba(0, 229, 255, 0.15); color: #00e5ff; border: 1px solid rgba(0, 229, 255, 0.3); }
+.ssintel-severity.info { background: rgba(139, 148, 158, 0.2); color: #8b949e; border: 1px solid rgba(139, 148, 158, 0.3); }
+
+.ssintel-empty {
+    text-align: center;
+    padding: 1.5rem;
+    color: #8b949e;
+    font-size: 0.85rem;
+}

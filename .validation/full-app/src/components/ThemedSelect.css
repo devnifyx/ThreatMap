@@ -1,0 +1,94 @@
+.themed-select {
+    position: relative;
+    display: inline-block;
+}
+
+.themed-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    background: #0d0f14;
+    border: 1px solid var(--ui-border, rgba(148, 163, 184, 0.14));
+    color: #e6edf3;
+    border-radius: var(--radius-sm, 4px);
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.themed-select-trigger:hover:not(:disabled) { border-color: rgba(0, 229, 255, 0.35); }
+
+.themed-select-trigger:focus-visible,
+.themed-select--open .themed-select-trigger {
+    outline: none;
+    border-color: rgba(0, 229, 255, 0.5);
+    box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.12);
+}
+
+.themed-select-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.themed-select-value {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.themed-select-trigger svg {
+    flex-shrink: 0;
+    color: rgba(148, 163, 184, 0.8);
+    transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.themed-select--open .themed-select-trigger svg {
+    transform: rotate(180deg);
+    color: #00e5ff;
+}
+
+.themed-select-list {
+    position: absolute;
+    z-index: 50;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 260px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    background: var(--ui-surface-2, #121926);
+    border: 1px solid var(--ui-border-strong, rgba(0, 229, 255, 0.22));
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.themed-select-option {
+    padding: 7px 10px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 0.82rem;
+    color: #e6edf3;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.themed-select-option--highlighted { background: rgba(0, 229, 255, 0.14); }
+
+.themed-select-option--selected { color: #00e5ff; font-weight: 600; }
+
+.themed-select-option--selected.themed-select-option--highlighted { background: rgba(0, 229, 255, 0.22); }
+
+.themed-select-option--disabled { opacity: 0.4; cursor: not-allowed; }
+
+.themed-select-empty {
+    padding: 7px 10px;
+    font-size: 0.82rem;
+    color: rgba(148, 163, 184, 0.8);
+}

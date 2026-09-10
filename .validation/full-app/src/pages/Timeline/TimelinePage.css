@@ -1,0 +1,214 @@
+/* TimelinePage.css — TIMELINE_PHASE1.md
+ *
+ * Deliberately small: almost everything reuses .ti-* (ThreatIntelligencePage.css)
+ * and .case-timeline* (CasesPage.css) already imported by this page (§10
+ * "Use existing LekirraX visual language" — never a second visual system).
+ * Only the handful of genuinely new layout pieces below are added.
+ */
+
+.timeline-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.timeline-filter-toggle {
+    display: none;
+}
+
+.timeline-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.timeline-day-heading {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(0, 229, 255, 0.85);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.timeline-event-row {
+    align-items: flex-start;
+}
+
+.timeline-event-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--ui-border, rgba(255, 255, 255, 0.06));
+    border-radius: var(--radius-sm, 6px);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+}
+
+.timeline-event-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.timeline-event-title {
+    font-size: 0.88rem;
+    color: rgba(230, 237, 243, 0.95);
+    margin: 2px 0 6px;
+}
+
+.timeline-event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(148, 163, 184, 0.8);
+    margin-bottom: 8px;
+}
+
+/* TIMELINE_PHASE2.md §36 FILTER PRESETS */
+.timeline-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+.timeline-preset-btn {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--ui-border, rgba(255, 255, 255, 0.12));
+    background: rgba(255, 255, 255, 0.02);
+    color: rgba(148, 163, 184, 0.85);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+.timeline-preset-btn:hover { border-color: rgba(0, 229, 255, 0.4); color: rgba(0, 229, 255, 0.9); }
+.timeline-preset-btn.active {
+    border-color: rgba(0, 229, 255, 0.6);
+    color: rgba(0, 229, 255, 1);
+    background: rgba(0, 229, 255, 0.08);
+}
+
+/* TIMELINE_PHASE2.md §21/§22/§26/§33/§34 — extended event details sections. */
+.timeline-context {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--ui-border, rgba(255, 255, 255, 0.08));
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.timeline-context-section > .k { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; color: rgba(148, 163, 184, 0.7); margin-bottom: 4px; }
+.timeline-context-list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.timeline-context-list li { font-size: 0.82rem; color: rgba(230, 237, 243, 0.9); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.timeline-context-time { font-size: 0.72rem; color: rgba(148, 163, 184, 0.65); }
+.timeline-inline-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: rgba(0, 229, 255, 0.9);
+    cursor: pointer;
+    font-size: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.timeline-inline-link:hover { color: rgba(0, 229, 255, 1); }
+.timeline-shared-context { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.timeline-confidence-high { border-color: rgba(248, 113, 113, 0.5) !important; color: rgba(248, 113, 113, 0.95) !important; }
+.timeline-confidence-medium { border-color: rgba(250, 204, 21, 0.5) !important; color: rgba(250, 204, 21, 0.95) !important; }
+.timeline-confidence-low,
+.timeline-confidence-unknown { border-color: rgba(148, 163, 184, 0.4) !important; color: rgba(148, 163, 184, 0.85) !important; }
+
+/* TIMELINE_PHASE3.md §51 UI — Timeline / Activity / Trends tab switcher. */
+.timeline-top-tabs {
+    display: flex;
+    gap: 6px;
+    margin: 0 0 14px;
+    padding: 0 4px;
+}
+.timeline-top-tab {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
+    border: 1px solid var(--ui-border, rgba(255, 255, 255, 0.1));
+    border-bottom: none;
+    background: rgba(255, 255, 255, 0.02);
+    color: rgba(148, 163, 184, 0.8);
+    cursor: pointer;
+}
+.timeline-top-tab.active {
+    background: rgba(0, 229, 255, 0.08);
+    color: rgba(0, 229, 255, 1);
+    border-color: rgba(0, 229, 255, 0.4);
+}
+
+/* §10/§52 ACTIVITY BURST CARDS */
+.timeline-burst-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+}
+.timeline-burst-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--ui-border, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius-sm, 6px);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.timeline-burst-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+.timeline-burst-title { font-weight: 600; font-size: 0.95rem; color: rgba(230, 237, 243, 0.95); }
+.timeline-burst-stats { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: rgba(148, 163, 184, 0.85); }
+
+/* §54 TEMPORAL COMPARISON CARD */
+.timeline-comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+.timeline-comparison-col { text-align: center; }
+.timeline-comparison-big { font-size: 1.8rem; font-weight: 700; color: rgba(0, 229, 255, 0.95); }
+
+/* §25/§26 TREND BARS */
+.timeline-trend-bars { display: flex; flex-direction: column; gap: 8px; }
+.timeline-trend-row { display: grid; grid-template-columns: 160px 1fr 50px; align-items: center; gap: 10px; font-size: 0.8rem; }
+.timeline-trend-label { color: rgba(230, 237, 243, 0.9); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.timeline-trend-bar-track { height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.05); overflow: hidden; }
+.timeline-trend-bar-fill { height: 100%; background: rgba(0, 229, 255, 0.55); border-radius: 4px; }
+.timeline-trend-count { text-align: right; color: rgba(148, 163, 184, 0.85); }
+
+/* §30-36 AI TIMELINE ANALYST result block */
+.timeline-ai-result { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-sm, 6px); background: rgba(255, 255, 255, 0.015); border: 1px solid var(--ui-border, rgba(255, 255, 255, 0.06)); }
+.timeline-ai-result p { margin: 0 0 8px; color: rgba(230, 237, 243, 0.92); font-size: 0.85rem; }
+
+/* §38 RESPONSIVE UI — mobile: collapsible filters, one column, no horizontal overflow. */
+@media (max-width: 768px) {
+    .timeline-filter-toggle {
+        display: inline-flex;
+    }
+    .timeline-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .timeline-filters select,
+    .timeline-filters input {
+        width: 100%;
+    }
+    .timeline-trend-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+    .timeline-comparison-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .timeline-top-tabs {
+        overflow-x: auto;
+    }
+}

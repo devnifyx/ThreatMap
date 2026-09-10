@@ -1,0 +1,355 @@
+.ti-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ti-header {
+    padding: 20px 24px 12px;
+    flex-shrink: 0;
+}
+
+.ti-header h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #e6edf3;
+}
+
+.ti-subtitle {
+    font-size: 0.85rem;
+    color: rgba(148, 163, 184, 0.85);
+    margin: 0;
+}
+
+.ti-unified-search {
+    position: relative;
+    margin-top: 12px;
+    max-width: 560px;
+}
+
+.ti-unified-search input {
+    width: 100%;
+    background: #0d0f14;
+    border: 1px solid var(--ui-border);
+    color: #e6edf3;
+    border-radius: var(--radius-md);
+    padding: 8px 12px 8px 32px;
+    font-size: 0.85rem;
+}
+
+.ti-unified-search input:focus {
+    outline: none;
+    border-color: rgba(0, 229, 255, 0.4);
+}
+
+.ti-unified-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 9px;
+    color: rgba(148, 163, 184, 0.7);
+    pointer-events: none;
+}
+
+.ti-unified-search-results {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #12151c;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    max-height: 340px;
+    overflow-y: auto;
+    z-index: 50;
+    padding: 4px;
+}
+
+.ti-unified-search-result {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    cursor: pointer;
+}
+
+.ti-unified-search-result:hover:not(:disabled) {
+    background: rgba(0, 229, 255, 0.08);
+}
+
+.ti-unified-search-result:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.ti-unified-search-label {
+    font-size: 0.85rem;
+    color: #e6edf3;
+}
+
+.ti-unified-search-type {
+    font-size: 0.72rem;
+    color: rgba(148, 163, 184, 0.75);
+    text-transform: capitalize;
+}
+
+.ti-container {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    padding: 0 24px 24px;
+    gap: 20px;
+}
+
+.ti-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ti-card {
+    background: #14161d;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    min-width: 0;
+}
+
+.ti-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.ti-card-title {
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: rgba(0, 229, 255, 0.92);
+}
+
+.ti-kv {
+    display: grid;
+    grid-template-columns: minmax(150px, 1px) minmax(0, 1fr);
+    gap: 3px 1px;
+    align-items: start;
+}
+.ti-kv .k { color: rgba(148, 163, 184, 0.92); font-weight: 700; font-size: 0.85rem; }
+.ti-kv .v { min-width: 0; overflow-wrap: anywhere; word-break: break-word; color: rgba(255, 255, 255, 0.92); font-size: 0.9rem; }
+
+.ti-list { margin: 0; padding-left: 18px; min-width: 0; color: rgba(224, 224, 224, 0.88); }
+.ti-list li { margin: 8px 0; min-width: 0; }
+.ti-empty { color: rgba(148, 163, 184, 0.92); font-size: 0.9rem; padding: 16px 0; text-align: center; }
+.ti-note { color: rgba(224, 224, 224, 0.8); font-size: 0.9rem; line-height: 1.45; }
+.ti-loading { color: rgba(148, 163, 184, 0.85); font-size: 0.85rem; padding: 16px 0; text-align: center; }
+
+.ti-error {
+    padding: 16px; text-align: center; color: #f85149; font-size: 0.85rem;
+    display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.ti-retry-btn {
+    background: rgba(248, 81, 73, 0.12); border: 1px solid rgba(248, 81, 73, 0.4);
+    color: #f85149; border-radius: var(--radius-sm); padding: 4px 12px; font-size: 0.78rem; cursor: pointer;
+}
+.ti-retry-btn:hover { background: rgba(248, 81, 73, 0.2); }
+
+.ti-refresh-btn {
+    background: transparent; border: 1px solid var(--ui-border); color: rgba(200, 208, 218, 0.85);
+    border-radius: var(--radius-sm); padding: 4px 10px; font-size: 0.75rem; cursor: pointer;
+}
+.ti-refresh-btn:hover:not(:disabled) { border-color: rgba(0, 229, 255, 0.4); color: rgba(0, 229, 255, 0.95); }
+.ti-refresh-btn:disabled { opacity: 0.5; cursor: default; }
+
+.ti-scope-badge {
+    display: inline-block; padding: 2px 8px; border-radius: var(--radius-sm);
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+    margin-left: 8px; vertical-align: middle;
+}
+.ti-scope-badge--implemented { background: rgba(63, 185, 80, 0.15); color: #3fb950; }
+.ti-scope-badge--partial { background: rgba(210, 153, 34, 0.15); color: #d29922; }
+.ti-scope-badge--planned { background: rgba(148, 163, 184, 0.15); color: #8b949e; }
+
+/* ---- KPI cards ---- */
+.ti-kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.ti-kpi-card {
+    background: rgba(255, 255, 255, 0.02); border: 1px solid var(--ui-border);
+    border-radius: var(--radius-md); padding: 14px; text-align: left; cursor: pointer; font-family: inherit;
+}
+.ti-kpi-card:hover { border-color: rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.04); }
+.ti-kpi-value { font-size: 1.7rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; color: #e6edf3; }
+.ti-kpi-value--critical { color: #f85149; }
+.ti-kpi-value--warn { color: #d29922; }
+.ti-kpi-label { margin-top: 6px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(148, 163, 184, 0.85); }
+
+/* ---- bar meters (Threat Landscape / ATT&CK tactic bars) ---- */
+.ti-bar-list { display: flex; flex-direction: column; gap: 8px; }
+.ti-bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; }
+.ti-bar-label { width: 150px; flex-shrink: 0; color: rgba(200, 208, 218, 0.9); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ti-bar-track { flex: 1; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden; }
+.ti-bar-fill { height: 100%; background: linear-gradient(90deg, rgba(0, 229, 255, 0.55), rgba(0, 229, 255, 0.9)); border-radius: 4px; }
+.ti-bar-count { width: 32px; text-align: right; flex-shrink: 0; color: rgba(148, 163, 184, 0.9); font-variant-numeric: tabular-nums; }
+
+/* ---- filters ---- */
+.ti-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.ti-filters input[type="text"],
+.ti-filters input[type="date"],
+.ti-filters input[type="number"],
+.ti-filters select {
+    background: #0d0f14; border: 1px solid var(--ui-border); color: #e6edf3;
+    border-radius: var(--radius-sm); padding: 6px 10px; font-size: 0.8rem; font-family: inherit;
+}
+.ti-filters input[type="text"] { min-width: 180px; flex: 1; }
+.ti-filters input:focus, .ti-filters select:focus { outline: none; border-color: rgba(0, 229, 255, 0.5); }
+
+/* ---- generic dark-themed form controls ----
+   Covers any raw input/select/textarea rendered outside .ti-filters (e.g.
+   Report Generator's Create Report form, narrative textareas, entity-id
+   fields). Without this they fall back to the browser's native light/gray
+   widget chrome, which clashes badly with the rest of this dark theme. */
+.ti-container input[type="text"],
+.ti-container input[type="number"],
+.ti-container input[type="date"],
+.ti-container input[type="datetime-local"],
+.ti-container input[type="search"],
+.ti-container select,
+.ti-container textarea {
+    background: #0d0f14; border: 1px solid var(--ui-border); color: #e6edf3;
+    border-radius: var(--radius-sm); padding: 6px 10px; font-size: 0.85rem; font-family: inherit;
+}
+.ti-container input[type="text"]:focus,
+.ti-container input[type="number"]:focus,
+.ti-container input[type="date"]:focus,
+.ti-container input[type="datetime-local"]:focus,
+.ti-container input[type="search"]:focus,
+.ti-container select:focus,
+.ti-container textarea:focus {
+    outline: none; border-color: rgba(0, 229, 255, 0.5);
+}
+.ti-container textarea { resize: vertical; }
+.ti-container input:disabled,
+.ti-container select:disabled,
+.ti-container textarea:disabled { opacity: 0.6; cursor: default; }
+
+/* ---- table ---- */
+.ti-table-wrap { overflow-x: auto; }
+.ti-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.ti-table th {
+    text-align: left; padding: 8px 10px; color: rgba(148, 163, 184, 0.85);
+    font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--ui-border); white-space: nowrap;
+}
+.ti-table td { padding: 9px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); vertical-align: middle; }
+.ti-table tr:hover td { background: rgba(255, 255, 255, 0.015); }
+.ti-table tr.ti-row-clickable { cursor: pointer; }
+.ti-target { display: inline-block; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom; }
+
+.ti-badge { display: inline-block; padding: 2px 8px; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 700; }
+.ti-badge--critical { background: rgba(248,81,73,0.15); color: #f85149; }
+.ti-badge--high      { background: rgba(210,153,34,0.15); color: #d29922; }
+.ti-badge--medium    { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.ti-badge--low        { background: rgba(63,185,80,0.15); color: #3fb950; }
+.ti-badge--confirmed  { background: rgba(163,113,247,0.18); color: #a371f7; }
+.ti-badge--info       { background: rgba(148,163,184,0.15); color: #8b949e; }
+.ti-badge--none       { color: var(--text-muted, #8b949e); background: none; }
+
+.ti-chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.ti-chip {
+    display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.04);
+    border: 1px solid var(--ui-border); border-radius: var(--radius-sm); padding: 3px 9px; font-size: 0.78rem;
+    color: rgba(200, 208, 218, 0.9); cursor: pointer; font-family: inherit;
+}
+.ti-chip:hover { border-color: rgba(0, 229, 255, 0.4); color: rgba(0, 229, 255, 0.95); }
+
+.ti-row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.ti-action-btn {
+    background: transparent; border: 1px solid var(--ui-border); color: rgba(200, 208, 218, 0.85);
+    border-radius: var(--radius-sm); padding: 3px 9px; font-size: 0.72rem; cursor: pointer; white-space: nowrap;
+}
+.ti-action-btn:hover { border-color: rgba(0, 229, 255, 0.4); color: rgba(0, 229, 255, 0.95); }
+.ti-action-btn--danger:hover { border-color: rgba(248,81,73,0.5); color: #f85149; }
+.ti-action-btn:disabled { opacity: 0.6; cursor: default; }
+
+.ti-confirm-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center; z-index: 1100; padding: 20px;
+}
+.ti-confirm { background: #14161d; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-lg); width: 380px; max-width: 90vw; padding: 18px 20px; }
+.ti-confirm-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; color: #e6edf3; }
+.ti-confirm-text { font-size: 0.85rem; color: rgba(200, 208, 218, 0.9); margin-bottom: 4px; }
+.ti-confirm-meta { font-size: 0.8rem; color: rgba(148, 163, 184, 0.85); margin-bottom: 10px; word-break: break-word; }
+.ti-confirm-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+.ti-confirm-actions button { border-radius: var(--radius-sm); padding: 6px 14px; font-size: 0.82rem; cursor: pointer; font-family: inherit; }
+.ti-confirm-cancel { background: transparent; border: 1px solid var(--ui-border); color: rgba(200,208,218,0.9); }
+.ti-confirm-danger { background: rgba(248,81,73,0.15); border: 1px solid rgba(248,81,73,0.5); color: #f85149; }
+.ti-confirm-danger:disabled { opacity: 0.6; cursor: default; }
+
+.ti-pagination { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 0 2px; font-size: 0.8rem; }
+.ti-pagination button {
+    background: transparent; border: 1px solid var(--ui-border); color: rgba(200, 208, 218, 0.85);
+    border-radius: var(--radius-sm); padding: 4px 10px; cursor: pointer; font-size: 0.78rem;
+}
+.ti-pagination button:disabled { opacity: 0.4; cursor: default; }
+.ti-pagination-info { color: rgba(148, 163, 184, 0.85); }
+
+/* ---- modal (IOC / Campaign / Technique detail) ---- */
+.ti-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+}
+.ti-modal {
+    background: #14161d; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-lg);
+    width: 680px; max-width: 100%; max-height: 86vh; overflow-y: auto; display: flex; flex-direction: column;
+}
+.ti-modal-header {
+    display: flex; align-items: center; justify-content: space-between; padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06); position: sticky; top: 0; background: #14161d;
+}
+.ti-modal-header h2 { font-size: 1rem; margin: 0; color: #e6edf3; word-break: break-word; }
+.ti-modal-close { background: transparent; border: none; font-size: 1.4rem; cursor: pointer; color: rgba(148, 163, 184, 0.85); line-height: 1; flex-shrink: 0; }
+.ti-modal-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+.ti-modal-subtitle { font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; font-size: 0.75rem; color: rgba(148, 163, 184, 0.85); margin-bottom: 8px; }
+
+/* ---- feed cards (Threat Feeds list) ---- */
+.ti-feed-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ti-feed-card { background: rgba(255,255,255,0.02); border: 1px solid var(--ui-border); border-radius: var(--radius-md); padding: 14px; cursor: pointer; text-align: left; font-family: inherit; width: 100%; }
+.ti-feed-card:hover { border-color: rgba(0, 229, 255, 0.35); }
+.ti-feed-card--planned { opacity: 0.6; cursor: default; }
+.ti-feed-card--planned:hover { border-color: var(--ui-border); }
+.ti-feed-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ti-feed-name { font-weight: 700; font-size: 0.9rem; color: #e6edf3; }
+.ti-feed-status { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.ti-feed-dot { width: 7px; height: 7px; border-radius: 50%; }
+.ti-feed-dot--on { background: #3fb950; box-shadow: 0 0 6px #3fb950; }
+.ti-feed-dot--off { background: #8b949e; }
+.ti-feed-stats { display: flex; gap: 14px; font-size: 0.78rem; color: rgba(148, 163, 184, 0.9); flex-wrap: wrap; }
+
+/* ---- Responsive (§15) — mirrors Monitoring's own breakpoints ---- */
+@media (max-width: 1000px) {
+    .ti-container { flex-direction: column; }
+    .ti-kpi-row { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 800px) {
+    .ti-table thead { display: none; }
+    .ti-table, .ti-table tbody, .ti-table tr, .ti-table td { display: block; width: 100%; }
+    .ti-table tr { border: 1px solid var(--ui-border); border-radius: var(--radius-md); margin-bottom: 10px; padding: 8px; }
+    .ti-table td { border-bottom: none; padding: 4px 2px; }
+    .ti-target { max-width: 100%; }
+    .ti-bar-label { width: 100px; }
+}
+
+@media (max-width: 560px) {
+    .ti-kpi-row { grid-template-columns: 1fr; }
+}

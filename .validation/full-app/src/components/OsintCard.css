@@ -1,0 +1,176 @@
+.osint-card {
+    background-color: rgba(13, 17, 23, 0.75);
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-card);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    overflow: hidden;
+}
+
+.osint-card:hover {
+    transform: translateY(-2px);
+    box-shadow: none;
+    border-color: rgba(0, 229, 255, 0.28);
+}
+
+/* Named .osint-card-header (not .osint-header) — that generic name is also
+   used by the unrelated standalone OSINT Toolkit page
+   (frontend/src/pages/OsintResults/OsintPage.css) with completely different
+   padding/margin. Both selectors have equal specificity, so whichever
+   stylesheet the bundler emits later silently wins — that collision was the
+   real cause of the oversized header gap on these cards. */
+.osint-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--ui-border);
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+.osint-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.osint-icon {
+    font-size: 1.2rem;
+}
+
+.osint-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ui-text);
+    margin: 0;
+}
+
+.osint-card-risk-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.risk-low {
+    background-color: rgba(16, 185, 129, 0.14);
+    color: var(--ui-success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.risk-medium {
+    background-color: rgba(245, 158, 11, 0.14);
+    color: var(--ui-warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.risk-high {
+    background-color: rgba(239, 68, 68, 0.14);
+    color: var(--ui-danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.osint-card-content {
+    font-size: 0.85rem;
+    color: var(--ui-text-muted);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.osint-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--ui-accent);
+    font-family: var(--ui-font-mono);
+}
+
+.osint-error {
+    color: var(--ui-danger);
+    text-align: center;
+    padding: 10px;
+}
+
+.key-value-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.key-label {
+    font-weight: 500;
+    color: var(--ui-text-muted);
+}
+
+.value-text {
+    font-family: var(--ui-font-mono);
+    color: var(--ui-text);
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.osint-warning {
+    padding: 8px 10px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 6px;
+    background: rgba(245, 158, 11, 0.08);
+    color: var(--ui-warning);
+    font-size: 0.78rem;
+}
+
+.osint-subsection {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.osint-card-subtitle {
+    color: var(--ui-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.expand-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--ui-accent);
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: var(--ui-radius);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.expand-btn:hover {
+    background: rgba(0, 229, 255, 0.1);
+}
+
+.json-view {
+    background: #000;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 0.75rem;
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: #a5d6ff;
+}

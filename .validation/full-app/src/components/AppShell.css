@@ -1,0 +1,974 @@
+/* App-wide navigation shell — persistent left expandable/collapsible tree
+   (NAVIGATION_TREE_REDESIGN.md) + one-time brand bar. Reuses .module-btn's
+   active-state visual language (cyan gradient/border, see OsintPage.css)
+   rather than inventing a new active treatment, and the existing
+   --ui- / --radius- design tokens throughout — no new fonts.
+
+   Fixed-header/fixed-sidebar/independent-scroll layout (FIXED_HEADER.md):
+   header and rail are position:fixed (out of normal flow entirely, not just
+   sticky-within-flow); .app-shell-content is offset via margin to clear
+   them and is the one region that scrolls. The browser body/window itself
+   never scrolls (see index.css's html,body{overflow:hidden}, unchanged by
+   this file) — Lenis is scoped to .app-shell-scroll-region instead of the
+   window (see SmoothScroll.tsx's root={false} usage in AppShell.tsx), so
+   GSAP ScrollTrigger-driven reveal animations (ScanReveal.tsx and its
+   consumers) keep working by targeting that same element as their
+   `scroller` instead of the default window. */
+
+.app-shell {
+    --app-shell-header-h: 90px;
+    --app-shell-sidebar-w: 248px;
+    --app-shell-sidebar-w-collapsed: 68px;
+    width: 100%;
+    min-height: 100vh;
+    /* Establishes a new block-formatting context so .app-shell-body's
+       margin-top (below) can't collapse through .app-shell/#root/body and
+       inflate the page past 100vh — that was the actual cause of residual
+       body scroll (html,body{overflow:hidden} alone doesn't stop margin
+       collapse from making the document taller than the viewport). */
+    display: flow-root;
+}
+
+.app-shell-rail {
+    position: fixed;
+    top: var(--app-shell-header-h);
+    left: 0;
+    height: calc(100vh - var(--app-shell-header-h));
+    width: var(--app-shell-sidebar-w);
+    display: flex;
+    flex-direction: column;
+    padding: 14px 10px;
+    background: rgba(0, 0, 0, 0.32);
+    border-right: 1px solid var(--ui-border);
+    z-index: 40;
+    transition: width 200ms ease;
+}
+
+.app-shell--collapsed .app-shell-rail {
+    width: var(--app-shell-sidebar-w-collapsed);
+    align-items: center;
+}
+
+.app-shell-rail-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 10px 6px;
+    flex: 0 0 auto;
+}
+
+.app-shell--collapsed .app-shell-rail-logo {
+    margin: 0 0 10px;
+}
+
+.app-shell-rail-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.app-shell-rail-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+}
+
+/* Section header row — shared by flat single-target sections (Web
+   Intelligence, OSINT) and accordion section toggles (Dashboard, Threat
+   Intelligence, ...). Icon-left, label, optional chevron. */
+.app-shell-nav-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(224, 224, 224, 0.78);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.app-shell--collapsed .app-shell-nav-row {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+}
+
+.app-shell-nav-row:hover {
+    background: rgba(0, 229, 255, 0.06);
+    border-color: rgba(0, 229, 255, 0.22);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.app-shell-nav-row.active {
+    background: linear-gradient(180deg, rgba(0, 229, 255, 0.12), rgba(0, 229, 255, 0.05));
+    color: rgba(0, 229, 255, 0.95);
+    border-color: rgba(0, 229, 255, 0.34);
+    box-shadow: 0 14px 34px rgba(0, 229, 255, 0.08);
+}
+
+.app-shell-nav-row:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.22);
+}
+
+.app-shell-nav-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+}
+
+.app-shell-nav-label {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-shell--collapsed .app-shell-nav-label,
+.app-shell--collapsed .app-shell-nav-chevron {
+    display: none;
+}
+
+.app-shell-nav-chevron {
+    flex: 0 0 auto;
+    transition: transform 160ms ease;
+    opacity: 0.75;
+}
+
+.app-shell-nav-chevron--open {
+    transform: rotate(180deg);
+}
+
+.app-shell-nav-children {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 0 4px 34px;
+}
+
+.app-shell-nav-leaf {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-left: 2px solid rgba(255, 255, 255, 0.08);
+    color: rgba(200, 208, 218, 0.8);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-shell-nav-leaf:hover {
+    background: rgba(0, 229, 255, 0.06);
+    color: rgba(255, 255, 255, 0.92);
+    border-left-color: rgba(0, 229, 255, 0.4);
+}
+
+.app-shell-nav-leaf.active {
+    background: rgba(0, 229, 255, 0.10);
+    color: rgba(0, 229, 255, 0.95);
+    border-left-color: #00e5ff;
+}
+
+/* NAV.md — nested subgroups within a top-level accordion section (used by
+   OSINT to fold ~18 modules into 7 categories: Identity/Organization/
+   Infrastructure/Threat/Exposure/Media/Search Intelligence). Same
+   accordion mechanics as .app-shell-nav-row/.app-shell-nav-chevron above,
+   just one indent level deeper and visually lighter — a small muted icon
+   plus a chevron is enough to read as "category" next to the plain-text
+   .app-shell-nav-leaf buttons it reveals (which are untouched, reused
+   as-is, so their active/hover treatment never changes — NAV.md point 8). */
+.app-shell-nav-subgroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-shell-nav-subgroup-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-left: 2px solid rgba(255, 255, 255, 0.08);
+    color: rgba(200, 208, 218, 0.85);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 7px 10px;
+    cursor: pointer;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.app-shell-nav-subgroup-header:hover {
+    background: rgba(0, 229, 255, 0.06);
+    color: rgba(255, 255, 255, 0.92);
+    border-left-color: rgba(0, 229, 255, 0.4);
+}
+
+.app-shell-nav-subgroup-header:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.22);
+}
+
+.app-shell-nav-subgroup-header.active {
+    border-left-color: rgba(0, 229, 255, 0.55);
+    color: rgba(0, 229, 255, 0.9);
+}
+
+.app-shell-nav-subgroup-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    opacity: 0.75;
+}
+
+.app-shell-nav-subgroup-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-shell-nav-subgroup-chevron {
+    flex: 0 0 auto;
+    transition: transform 160ms ease;
+    opacity: 0.65;
+}
+
+.app-shell-nav-subgroup-chevron--open {
+    transform: rotate(180deg);
+}
+
+.app-shell-nav-subchildren {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 0 4px 18px;
+}
+
+.app-shell-rail-collapse-btn {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 3px;
+    padding: 8px 10px;
+    background: transparent;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--radius-md);
+    color: rgba(148, 163, 184, 0.85);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+    width: 100%;
+}
+
+.app-shell--collapsed .app-shell-rail-collapse-btn {
+    width: 44px;
+    padding: 8px;
+}
+
+.app-shell-rail-collapse-btn:hover {
+    border-color: rgba(0, 229, 255, 0.3);
+    color: rgba(0, 229, 255, 0.9);
+    background: rgba(0, 229, 255, 0.05);
+}
+
+/* Icon-only by design when collapsed — the label surfaces as a tooltip on
+   hover/focus instead. Deliberately different density from
+   OsintPage.tsx's own 19-item labelled sidebar, which never collapses. */
+.app-shell-rail-tooltip {
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-4px);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    background: #0d1117;
+    border: 1px solid var(--ui-border-strong);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+    z-index: 50;
+}
+
+.app-shell-nav-row .app-shell-rail-tooltip {
+    display: none;
+}
+
+.app-shell--collapsed .app-shell-nav-row .app-shell-rail-tooltip {
+    display: block;
+}
+
+.app-shell--collapsed .app-shell-nav-row:hover .app-shell-rail-tooltip,
+.app-shell--collapsed .app-shell-nav-row:focus-visible .app-shell-rail-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+.app-shell-body {
+    margin-left: var(--app-shell-sidebar-w);
+    margin-top: var(--app-shell-header-h);
+    min-width: 0;
+    transition: margin-left 200ms ease;
+}
+
+.app-shell--collapsed .app-shell-body {
+    margin-left: var(--app-shell-sidebar-w-collapsed);
+}
+
+.app-shell-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 1.5rem 0 1.75rem;
+    height: var(--app-shell-header-h);
+    background:
+        linear-gradient(180deg, rgba(15, 21, 29, 0.98), rgba(8, 12, 17, 0.96)),
+        var(--ui-surface);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.22);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+    overflow: hidden;
+    isolation: isolate;
+    z-index: 50;
+}
+
+.app-shell-topbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.8) 28%, rgba(94, 234, 212, 0.45) 70%, transparent);
+    opacity: 0.75;
+}
+
+.app-shell-topbar-atmosphere {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 8% 40%, rgba(0, 229, 255, 0.11), transparent 18%),
+        radial-gradient(circle at 78% -120%, rgba(0, 229, 255, 0.14), transparent 38%),
+        linear-gradient(90deg, transparent 0 16%, rgba(255, 255, 255, 0.025) 16.1%, transparent 16.2% 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.app-shell-topbar-brand,
+.app-shell-topbar-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.app-shell-topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-width: 0;
+}
+
+.app-shell-topbar-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 82px;
+    height: 82px;
+    flex: 0 0 auto;
+}
+
+.app-shell-topbar-logo img {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.12));
+}
+
+.app-shell-topbar-brand-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.app-shell-topbar-kicker {
+    color: rgba(94, 234, 212, 0.76);
+    font-family: var(--ui-font-mono);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.app-shell-topbar-kicker b {
+    color: var(--ui-accent);
+    font-weight: 700;
+}
+
+.app-shell-topbar-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin: 0;
+    color: var(--ui-accent);
+    font-family: var(--ui-font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.app-shell-topbar-wordmark {
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.22);
+}
+
+.app-shell-topbar-subtitle {
+    color: rgba(185, 194, 207, 0.74);
+    font-family: var(--ui-font);
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.045em;
+    text-transform: none;
+}
+
+.app-shell-topbar-subtitle i {
+    color: rgba(0, 229, 255, 0.45);
+    font-style: normal;
+    margin-right: 0.1rem;
+}
+
+.app-shell-topbar-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    min-width: 0;
+}
+
+.app-shell-topbar-divider {
+    width: 1px;
+    height: 30px;
+    margin: 0 0.15rem;
+    background: linear-gradient(180deg, transparent, rgba(148, 163, 184, 0.32), transparent);
+}
+
+.app-shell-topbar-live {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 42px;
+    padding: 0 0.55rem 0 0.35rem;
+    white-space: nowrap;
+}
+
+.app-shell-topbar-live-signal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 29px;
+    height: 29px;
+    border: 1px solid rgba(0, 229, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(0, 229, 255, 0.07);
+}
+
+.app-shell-topbar .pulse-dot {
+    width: 7px;
+    height: 7px;
+    margin: 0;
+    border-radius: 50%;
+    background: var(--ui-accent);
+    box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.1), 0 0 13px rgba(0, 229, 255, 0.8);
+    animation: app-shell-header-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes app-shell-header-pulse {
+    0%, 100% { opacity: 0.72; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.08); }
+}
+
+.app-shell-topbar-live-copy,
+.app-shell-topbar-user-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.app-shell-topbar-live-label {
+    color: rgba(148, 163, 184, 0.68);
+    font-family: var(--ui-font-mono);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1;
+}
+
+.app-shell-topbar-live-value {
+    color: var(--ui-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* ADMINISTRATION_PASS3.md — this is now a real <button> (opens the
+   preferences modal), not a static <div>; reset button chrome and add a
+   hover affordance so it reads as clickable. */
+.app-shell-topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 92px;
+    padding: 0 0.35rem;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: background 0.2s ease;
+}
+
+.app-shell-topbar-user:hover,
+.app-shell-topbar-user:focus-visible {
+    background: rgba(0, 229, 255, 0.08);
+}
+
+.app-shell-topbar-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(0, 255, 136, 0.38);
+    border-radius: 50%;
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+    font-family: var(--ui-font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.app-shell-topbar-user-copy {
+    align-items: flex-start;
+}
+
+.app-shell-topbar-role {
+    color: #00ff88;
+    font-family: var(--ui-font-mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.app-shell-topbar-name {
+    max-width: 94px;
+    overflow: hidden;
+    color: rgba(185, 194, 207, 0.72);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-shell-topbar-admin-btn,
+.app-shell-topbar-history-btn,
+.app-shell-topbar-logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 1rem;
+    border-radius: 7px;
+    font-family: var(--ui-font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.app-shell-topbar-admin-btn {
+    gap: 0.45rem;
+    border: 1px solid rgba(255, 107, 107, 0.85);
+    background: linear-gradient(135deg, #ff6b6b, #f05262);
+    color: white;
+    box-shadow: 0 7px 18px rgba(255, 82, 97, 0.16);
+}
+
+.app-shell-topbar-admin-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(255, 82, 97, 0.3);
+}
+
+.app-shell-topbar-history-btn {
+    border: 1px solid rgba(0, 229, 255, 0.5);
+    background: rgba(0, 229, 255, 0.025);
+    color: var(--ui-accent);
+    text-decoration: none;
+}
+
+.app-shell-topbar-history-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(0, 229, 255, 0.1);
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
+    text-decoration: none;
+}
+
+.app-shell-topbar-logout-btn {
+    border: 1px solid rgba(255, 0, 85, 0.82);
+    background: rgba(255, 0, 85, 0.015);
+    color: #ff3d7b;
+}
+
+.app-shell-topbar-logout-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: rgba(255, 0, 85, 0.1);
+    box-shadow: 0 0 18px rgba(255, 0, 85, 0.2);
+}
+
+.app-shell-topbar-admin-btn:active,
+.app-shell-topbar-history-btn:active,
+.app-shell-topbar-logout-btn:active {
+    transform: translateY(0);
+}
+
+.app-shell-topbar-logout-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.app-shell-content {
+    min-width: 0;
+    height: calc(100vh - var(--app-shell-header-h));
+    /* The visible scrolling happens inside .app-shell-scroll-region (Lenis's
+       own wrapper, below) — this outer box just clips to its fixed size. */
+    overflow: hidden;
+}
+
+/* Lenis's auto-generated wrapper for the scoped (non-root) instance — see
+   SmoothScroll.tsx / AppShell.tsx. Lenis itself adds a `.lenis` class here
+   once mounted (index.css already styles that class with height:100% +
+   overflow-y:auto), but overflow is also set directly below so there's no
+   flash-of-unscrollable-content in the instant between first paint and
+   Lenis's own effect attaching that class. */
+.app-shell-scroll-region {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Lenis's own auto-generated content div (ReactLenis root={false} renders
+   wrapper > content, and only the wrapper gets our className — see
+   SmoothScroll.tsx) has no styling of its own, which breaks percentage
+   heights for anything below it: a page using e.g. `min-height: 100%` to
+   fill the visible pane (matching this file's own fixed-header/sidebar
+   math) can't resolve that percentage unless every ancestor up to here has
+   a *definite* height, not just min-height. This — plus .page-transition
+   in index.css — completes that chain. */
+.app-shell-scroll-region > div {
+    height: 100%;
+}
+
+/* Thin modern scrollbar (FIXED_HEADER.md) — applied to both independently-
+   scrolling regions: the sidebar's own item list and the main content. */
+.app-shell-rail-scroll,
+.app-shell-scroll-region {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 229, 255, 0.35) transparent;
+}
+
+.app-shell-rail-scroll::-webkit-scrollbar,
+.app-shell-scroll-region::-webkit-scrollbar {
+    width: 6px;
+}
+
+.app-shell-rail-scroll::-webkit-scrollbar-track,
+.app-shell-scroll-region::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.app-shell-rail-scroll::-webkit-scrollbar-thumb,
+.app-shell-scroll-region::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 229, 255, 0.3);
+    border-radius: var(--radius-full);
+}
+
+.app-shell-rail-scroll::-webkit-scrollbar-thumb:hover,
+.app-shell-scroll-region::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 229, 255, 0.5);
+}
+
+@media (max-width: 1200px) {
+    .app-shell-topbar {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .app-shell-topbar-live-copy {
+        display: none;
+    }
+
+    .app-shell-topbar-live {
+        padding-right: 0.2rem;
+    }
+
+    .app-shell-topbar-title {
+        font-size: 1.5rem;
+    }
+
+    .app-shell-topbar-subtitle {
+        font-size: 0.88rem;
+    }
+}
+
+@media (max-width: 900px) {
+    /* Smaller fixed header + a fixed horizontal icon-strip sidebar below it
+       (still position:fixed, per FIXED_HEADER.md's "sidebar must also
+       remain fixed" — just reflowed from a left column to a top strip,
+       since the full tree doesn't fit a narrow column at this width). Both
+       custom properties are redeclared here so .app-shell-body/.app-shell-
+       content's existing calc()s stay correct without duplicating them. */
+    .app-shell {
+        --app-shell-header-h: 64px;
+        --app-shell-mobile-rail-h: 60px;
+    }
+
+    .app-shell-body {
+        margin-left: 0;
+        margin-top: calc(var(--app-shell-header-h) + var(--app-shell-mobile-rail-h));
+    }
+
+    .app-shell--collapsed .app-shell-body {
+        margin-left: 0;
+    }
+
+    .app-shell-content {
+        height: calc(100vh - var(--app-shell-header-h) - var(--app-shell-mobile-rail-h));
+    }
+
+    /* The full tree doesn't fit a horizontal mobile strip — force the same
+       icon-only treatment collapsing gives on desktop, regardless of the
+       persisted collapse toggle (accordion children just don't render). */
+    .app-shell-rail {
+        position: fixed;
+        top: var(--app-shell-header-h);
+        left: 0;
+        right: 0;
+        height: var(--app-shell-mobile-rail-h);
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        z-index: 40;
+        border-right: none;
+        border-bottom: 1px solid var(--ui-border);
+    }
+
+    .app-shell--collapsed .app-shell-rail {
+        width: 100%;
+    }
+
+    .app-shell-rail-logo {
+        display: none;
+    }
+
+    .app-shell-rail-scroll {
+        flex-direction: row;
+        overflow-y: hidden;
+        overflow-x: auto;
+        width: auto;
+    }
+
+    .app-shell-nav-row {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        justify-content: center;
+        flex: 0 0 auto;
+    }
+
+    .app-shell-nav-label,
+    .app-shell-nav-chevron,
+    .app-shell-nav-children {
+        display: none;
+    }
+
+    .app-shell-nav-row .app-shell-rail-tooltip {
+        display: block;
+        left: 50%;
+        top: calc(100% + 8px);
+        transform: translateX(-50%) translateY(-4px);
+    }
+
+    .app-shell-nav-row:hover .app-shell-rail-tooltip,
+    .app-shell-nav-row:focus-visible .app-shell-rail-tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .app-shell-rail-collapse-btn {
+        display: none;
+    }
+
+    .app-shell-topbar {
+        /* Fixed height on mobile too (see --app-shell-header-h override
+           above) — no wrap, so .app-shell-body's margin-top calc stays
+           accurate. .app-shell-topbar-subtitle/-user/-live are hidden below
+           specifically so what remains (brand + Admin/History/Logout)
+           comfortably fits one row at this height. */
+        padding: 0.5rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .app-shell-topbar-actions {
+        gap: 0.6rem;
+    }
+
+    .app-shell-topbar-subtitle {
+        display: none;
+    }
+
+    .app-shell-topbar-user,
+    .app-shell-topbar-live {
+        display: none;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .app-shell-topbar-brand {
+        gap: 0.45rem;
+    }
+
+    .app-shell-topbar-logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .app-shell-topbar-logo img {
+        width: 52px;
+        height: 52px;
+    }
+
+    .app-shell-topbar-kicker,
+    .app-shell-topbar-live,
+    .app-shell-topbar-user,
+    .app-shell-topbar-divider {
+        display: none;
+    }
+
+    .app-shell-topbar-title {
+        gap: 0.35rem;
+        font-size: 1.08rem;
+        letter-spacing: 0.08em;
+    }
+
+    .app-shell-topbar-subtitle {
+        font-size: 0.66rem;
+        letter-spacing: 0.02em;
+    }
+
+    .app-shell-topbar-actions {
+        flex: 0 0 auto;
+        gap: 0.4rem;
+    }
+
+    .app-shell-topbar-admin-btn,
+    .app-shell-topbar-history-btn,
+    .app-shell-topbar-logout-btn {
+        min-height: 32px;
+        padding: 0 0.58rem;
+        border-radius: 6px;
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+    }
+
+    .app-shell-topbar-admin-btn {
+        gap: 0.25rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .app-shell-topbar {
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+    }
+
+    .app-shell-topbar-subtitle {
+        display: none;
+    }
+
+    .app-shell-topbar-admin-btn {
+        width: 34px;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .app-shell-topbar-history-btn,
+    .app-shell-topbar-logout-btn {
+        padding-left: 0.45rem;
+        padding-right: 0.45rem;
+    }
+}

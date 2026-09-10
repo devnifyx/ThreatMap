@@ -1,0 +1,383 @@
+.statistics-page {
+    --st-cyan: #00e5ff;
+    --st-cyan-bg: rgba(0, 229, 255, 0.1);
+    --st-critical: #ff3366;
+    --st-high: #fb923c;
+    --st-medium: #58a6ff;
+    --st-low: #22c55e;
+    --st-border: rgba(148, 163, 184, 0.14);
+    --st-panel: linear-gradient(180deg, rgba(20, 24, 34, 0.9) 0%, rgba(13, 16, 23, 0.9) 100%);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 28px 40px;
+    max-width: 1280px;
+}
+
+.statistics-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0 0 4px;
+    color: #f1f5f9;
+}
+
+/* ── Grid of sections ──
+   Explicit placement so Investigation Statistics (the densest real
+   content — the module list) gets the tall, wide slot instead of every
+   card being forced to the same equal height. */
+
+.statistics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.stat-section--scan          { grid-column: 1; grid-row: 1; }
+.stat-section--investigation { grid-column: 2; grid-row: 1 / span 2; }
+.stat-section--brand         { grid-column: 3; grid-row: 1; }
+.stat-section--system        { grid-column: 1; grid-row: 2; }
+.stat-section--ioc           { grid-column: 3; grid-row: 2; }
+
+/* ── Section card ── */
+
+.stat-section {
+    background: var(--st-panel);
+    border: 1px solid var(--st-border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stat-section:hover:not(.stat-section--faded) {
+    border-color: rgba(0, 229, 255, 0.22);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px -16px rgba(0, 0, 0, 0.6);
+}
+
+.stat-section--faded {
+    opacity: 0.85;
+}
+
+.stat-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.stat-section-title {
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(226, 232, 240, 0.88);
+}
+
+.stat-section-period {
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    color: rgba(148, 163, 184, 0.55);
+    white-space: nowrap;
+}
+
+.stat-section-sub-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(148, 163, 184, 0.6);
+    margin: 12px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Stat cards row ── */
+
+.stat-cards-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.stat-card {
+    flex: 1 1 78px;
+    min-width: 72px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--st-border);
+    border-radius: 10px;
+    padding: 10px 10px 9px;
+    text-align: left;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.stat-card:hover {
+    border-color: rgba(0, 229, 255, 0.3);
+    background: var(--st-cyan-bg);
+}
+
+.stat-card-icon {
+    display: flex;
+    width: 20px; height: 20px;
+    align-items: center; justify-content: center;
+    border-radius: 6px;
+    background: var(--st-cyan-bg);
+    color: var(--st-cyan);
+    margin-bottom: 7px;
+}
+
+.stat-card-value {
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1.1;
+    margin-bottom: 3px;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.15s ease;
+}
+
+.stat-card:hover .stat-card-value { color: var(--st-cyan); }
+
+.stat-card-label {
+    font-size: 0.66rem;
+    color: rgba(148, 163, 184, 0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.stat-card-sub {
+    font-size: 0.68rem;
+    color: rgba(148, 163, 184, 0.55);
+    margin-top: 3px;
+}
+
+/* ── Highlight KPI (e.g. Brand Intelligence's Candidates Found) ── */
+
+.stat-highlight {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.08), rgba(0, 229, 255, 0.02));
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.stat-highlight-value {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--st-cyan);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-highlight-trend {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--st-low);
+}
+
+.stat-highlight-label {
+    margin-top: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(148, 163, 184, 0.65);
+}
+
+/* ── Risk mini bars ── */
+
+.risk-mini-bar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.risk-mini-bar-row {
+    display: grid;
+    grid-template-columns: 54px 1fr 40px;
+    align-items: center;
+    gap: 8px;
+}
+
+.risk-mini-bar-label {
+    font-size: 0.74rem;
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.risk-mini-bar-track {
+    height: 7px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.risk-mini-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.risk-mini-bar-count {
+    font-size: 0.74rem;
+    color: rgba(226, 232, 240, 0.85);
+    font-weight: 700;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Module bar list (scrollable so a long module list never forces
+     the whole card to grow unbounded) ── */
+
+.stat-module-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 230px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.stat-module-row {
+    display: grid;
+    grid-template-columns: 148px 1fr 44px;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-module-name {
+    font-size: 0.76rem;
+    color: rgba(203, 213, 225, 0.85);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stat-module-bar-track {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stat-module-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.45), rgba(0, 229, 255, 0.9));
+    transition: width 0.5s ease;
+}
+
+.stat-module-count {
+    font-size: 0.74rem;
+    text-align: right;
+    color: rgba(148, 163, 184, 0.7);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Role list (small proportional bars) ── */
+
+.stat-role-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-role-row { font-size: 0.8rem; }
+
+.stat-role-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.stat-role-name {
+    color: rgba(203, 213, 225, 0.85);
+    text-transform: capitalize;
+}
+
+.stat-role-count {
+    color: #dbe4ee;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-role-bar-track {
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.stat-role-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.4), rgba(0, 229, 255, 0.85));
+    transition: width 0.5s ease;
+}
+
+/* ── Coming soon / unavailable placeholder ── */
+
+.stat-coming-soon {
+    text-align: center;
+    padding: 26px 14px 10px;
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.stat-coming-soon svg {
+    color: rgba(148, 163, 184, 0.4);
+    margin-bottom: 10px;
+}
+
+.stat-coming-soon p {
+    margin: 0 0 5px;
+    font-size: 0.85rem;
+    color: rgba(203, 213, 225, 0.8);
+    font-weight: 600;
+}
+
+.stat-coming-soon-sub {
+    font-size: 0.76rem !important;
+    font-weight: 400 !important;
+    color: rgba(148, 163, 184, 0.6) !important;
+    line-height: 1.5;
+}
+
+/* ── Misc ── */
+
+.stat-empty-text {
+    font-size: 0.82rem;
+    color: rgba(148, 163, 184, 0.6);
+    margin: 0;
+}
+
+.stat-loading,
+.stat-error {
+    padding: 40px 24px;
+    color: rgba(148, 163, 184, 0.7);
+    font-size: 0.9rem;
+}
+
+.stat-error { color: var(--st-critical); }
+
+/* ── Responsive ── */
+
+@media (max-width: 1100px) {
+    .statistics-grid { grid-template-columns: 1fr 1fr; }
+    .stat-section--scan          { grid-column: 1; grid-row: 1; }
+    .stat-section--investigation { grid-column: 2; grid-row: 1 / span 3; }
+    .stat-section--brand         { grid-column: 1; grid-row: 2; }
+    .stat-section--system        { grid-column: 1; grid-row: 3; }
+    .stat-section--ioc           { grid-column: 2; grid-row: 4; }
+}
+
+@media (max-width: 720px) {
+    .statistics-page { padding: 18px 16px 32px; }
+    .statistics-grid { grid-template-columns: 1fr; }
+    .stat-section--scan, .stat-section--investigation, .stat-section--brand,
+    .stat-section--system, .stat-section--ioc { grid-column: 1; grid-row: auto; }
+    .stat-module-row, .risk-mini-bar-row { grid-template-columns: 110px 1fr 38px; }
+}

@@ -1,0 +1,402 @@
+/* Second section on ApiKeysPage.tsx (ADMINISTRATION_PASS4.md) — same dark
+   cyan visual language as ApiKeysPage.css/PreferencesModal.css, own
+   .personal-api-keys-* / .personal-api-key-* prefix throughout so nothing
+   here collides with ApiKeysPage.css's .api-keys-* provider table classes
+   or PreferencesModal.css's .form-group scoping. */
+.personal-api-keys-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 229, 255, 0.12);
+}
+
+.personal-api-keys-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.personal-api-keys-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: #00e5ff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.personal-api-keys-create-btn {
+    background: linear-gradient(135deg, #00e5ff, #00bcd4);
+    border: none;
+    color: #000;
+    padding: 0.55rem 1.2rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.personal-api-keys-create-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 229, 255, 0.4);
+}
+
+.personal-api-keys-hint {
+    margin: 1 0 .25rem 0;
+    font-size: 0.8rem;
+    color: #8b949e;
+    max-width: none;
+    white-space: nowrap;
+}
+
+.personal-api-keys-hint code {
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    border-radius: 3px;
+    padding: 0.1rem 0.35rem;
+    color: #00e5ff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.personal-api-keys-error {
+    margin-bottom: 1rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 4px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+    font-size: 0.8rem;
+}
+
+.personal-api-keys-loading {
+    text-align: center;
+    padding: 2rem;
+    color: #8b949e;
+}
+
+.personal-api-keys-table {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.personal-api-keys-thead {
+    display: grid;
+    grid-template-columns: 1fr 140px 170px 170px 100px 90px;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+    font-weight: 600;
+    color: #8b949e;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+}
+
+.personal-api-keys-tr {
+    display: grid;
+    grid-template-columns: 1fr 140px 170px 170px 100px 90px;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+    align-items: center;
+}
+
+.personal-api-keys-tr:last-child {
+    border-bottom: none;
+}
+
+.personal-api-keys-tr:hover {
+    background: rgba(0, 229, 255, 0.05);
+}
+
+.personal-api-keys-cell {
+    color: #e0e0e0;
+    font-size: 0.82rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.personal-api-keys-prefix {
+    font-family: 'JetBrains Mono', monospace;
+    color: #8b949e;
+}
+
+.personal-api-key-status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.personal-api-key-status-badge.active {
+    background: rgba(34, 197, 94, 0.18);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.personal-api-key-status-badge.revoked {
+    background: rgba(139, 148, 158, 0.15);
+    color: #8b949e;
+    border: 1px solid rgba(139, 148, 158, 0.3);
+}
+
+.personal-api-keys-actions {
+    text-align: right;
+}
+
+.personal-api-keys-revoke-btn {
+    background: transparent;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #ff6b6b;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.personal-api-keys-revoke-btn:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.personal-api-keys-revoke-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.personal-api-keys-empty {
+    text-align: center;
+    padding: 2rem;
+    color: #8b949e;
+    font-size: 0.85rem;
+}
+
+/* Create-key modal — same overlay/card pattern as PreferencesModal.css. */
+.personal-api-keys-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.personal-api-keys-modal {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 460px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+.personal-api-keys-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.personal-api-keys-modal-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: #00e5ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.personal-api-keys-modal-close {
+    background: transparent;
+    border: none;
+    color: #8b949e;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.personal-api-keys-modal-close:hover {
+    color: #00e5ff;
+}
+
+.personal-api-keys-modal-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.personal-api-keys-modal-body .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.personal-api-keys-modal-body .form-group label {
+    color: #8b949e;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.personal-api-keys-modal-body .form-group input {
+    background: #0d1117;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.personal-api-keys-modal-body .form-group input:focus {
+    outline: none;
+    border-color: #00e5ff;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+}
+
+.personal-api-keys-warning {
+    margin: 0;
+    padding: 0.6rem 0.85rem;
+    border-radius: 4px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+    font-size: 0.8rem;
+}
+
+.personal-api-keys-reveal-box {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #0d1117;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 4px;
+    padding: 0.65rem 0.85rem;
+}
+
+.personal-api-keys-reveal-box code {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: #4ade80;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    user-select: all;
+}
+
+.personal-api-keys-reveal-box button {
+    flex-shrink: 0;
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    color: #00e5ff;
+    padding: 0.4rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.personal-api-keys-reveal-box button:hover {
+    background: rgba(0, 229, 255, 0.25);
+}
+
+.personal-api-keys-modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+.personal-api-keys-modal-actions button[type="button"] {
+    background: transparent;
+    border: 1px solid rgba(139, 148, 158, 0.3);
+    color: #8b949e;
+    padding: 0.6rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.personal-api-keys-modal-actions button[type="button"]:hover {
+    border-color: #8b949e;
+    color: #e0e0e0;
+}
+
+.personal-api-keys-modal-actions button[type="submit"] {
+    background: linear-gradient(135deg, #00e5ff, #00bcd4);
+    border: none;
+    color: #000;
+    padding: 0.6rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.personal-api-keys-modal-actions button[type="submit"]:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 229, 255, 0.4);
+}
+
+.personal-api-keys-modal-actions button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+    .personal-api-keys-thead {
+        display: none;
+    }
+
+    .personal-api-keys-thead,
+    .personal-api-keys-tr {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+    }
+
+    .personal-api-keys-tr {
+        padding: 0.85rem 1rem;
+    }
+
+    .personal-api-keys-cell {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .personal-api-keys-cell::before {
+        content: attr(data-label);
+        color: #8b949e;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+
+    .personal-api-keys-actions {
+        text-align: left;
+        justify-content: flex-end;
+    }
+}

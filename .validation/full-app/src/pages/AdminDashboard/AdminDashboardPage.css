@@ -1,0 +1,259 @@
+:root {
+    --bg-darker: #050608;
+    --bg-panel: #0B0C10;
+    --primary-cyan: #00bcd4;
+    --accent-red: #ef4444;
+    --accent-orange: #f97316;
+    --text-primary: #e0e0e0;
+    --text-secondary: #94a3b8;
+}
+
+.admin-dashboard-page {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--bg-darker);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+}
+
+.admin-dashboard-header {
+    display: flex;
+    align-items: center;
+    padding: 0.65rem 1.5rem;
+    min-height: 72px;
+    background: #0d1117;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.admin-dashboard-header h1 {
+    font-size: 1.25rem;
+    color: #00e5ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.admin-dashboard-error {
+    margin: 1rem 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.55);
+    color: #fca5a5;
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.admin-dashboard-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.admin-mission-control {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.admin-mission-card {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.admin-mission-card:hover {
+    border-color: #00e5ff;
+    background: rgba(0, 229, 255, 0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.admin-mission-card .card-icon {
+    font-size: 2rem;
+    color: #00e5ff;
+}
+
+.admin-mission-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #00e5ff;
+}
+
+.admin-mission-card p {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+    color: #8b949e;
+}
+
+.admin-mission-card .card-arrow {
+    margin-left: auto;
+    font-size: 1.5rem;
+    color: #00e5ff;
+    opacity: 0.5;
+    transition: transform 0.3s;
+}
+
+.admin-mission-card:hover .card-arrow {
+    transform: translateX(8px);
+}
+
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.admin-stat-card {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.admin-stat-card.sessions {
+    border-color: rgba(0, 255, 136, 0.3);
+}
+
+.admin-stat-card.clickable {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-stat-card.clickable:hover {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.admin-stat-icon {
+    font-size: 2.5rem;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+}
+
+.admin-stat-content {
+    flex: 1;
+}
+
+.admin-stat-label {
+    color: #8b949e;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.admin-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00e5ff;
+}
+
+.admin-system-status {
+    background: #161b22;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.admin-system-status h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.status-dot.online {
+    background: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.status-dot.warning {
+    background: #ffcc00;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+.status-label {
+    flex: 1;
+    color: #8b949e;
+    font-weight: 600;
+}
+
+.status-value {
+    color: #e0e0e0;
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .admin-dashboard-header {
+        padding: 0.6rem 1rem;
+    }
+
+    .admin-mission-control {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .status-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .status-grid {
+        grid-template-columns: 1fr;
+    }
+}

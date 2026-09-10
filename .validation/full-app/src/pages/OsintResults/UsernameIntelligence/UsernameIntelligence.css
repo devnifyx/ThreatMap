@@ -1,0 +1,127 @@
+.uint-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.uint-card {
+    background: #14161d;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    min-width: 0;
+    height: auto;
+}
+
+.uint-card-title {
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: rgba(0, 229, 255, 0.92);
+    margin-bottom: 10px;
+}
+
+.uint-kv {
+    display: grid;
+    grid-template-columns: minmax(130px, 160px) minmax(0, 1fr);
+    gap: 8px 12px;
+    align-items: start;
+}
+
+.uint-kv .k {
+    color: rgba(148, 163, 184, 0.92);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.uint-kv .v {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.9rem;
+}
+
+.uint-list {
+    margin: 0;
+    padding-left: 18px;
+    min-width: 0;
+    color: rgba(224, 224, 224, 0.88);
+}
+
+.uint-list li {
+    margin: 8px 0;
+    min-width: 0;
+}
+
+.uint-empty {
+    color: rgba(148, 163, 184, 0.92);
+    font-size: 0.95rem;
+}
+
+.uint-note {
+    color: rgba(224, 224, 224, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.uint-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.uint-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.uint-platform-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.uint-platform-chip {
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.18);
+    color: rgba(224, 224, 224, 0.78);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+
+.uint-platform-chip:hover {
+    border-color: rgba(0, 229, 255, 0.22);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.uint-platform-chip.active {
+    background: linear-gradient(180deg, rgba(0, 229, 255, 0.12), rgba(0, 229, 255, 0.05));
+    color: rgba(0, 229, 255, 0.95);
+    border-color: rgba(0, 229, 255, 0.34);
+}
+
+.uint-reputation-bar-track {
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.uint-reputation-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: rgba(16, 185, 129, 0.7);
+}

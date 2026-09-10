@@ -1,0 +1,35 @@
+/* DASHBOARD_PHASE2.md — Shared period toggle button group */
+
+.period-toggle {
+    display: inline-flex;
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 9px;
+    padding: 3px;
+    flex-shrink: 0;
+}
+
+.period-toggle-btn {
+    padding: 6px 13px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: rgba(148, 163, 184, 0.7);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.period-toggle-btn.active {
+    background: rgba(0, 229, 255, 0.14);
+    color: #00e5ff;
+    box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.35);
+}
+
+.period-toggle-btn:hover:not(.active) {
+    color: #cbd5e1;
+}
