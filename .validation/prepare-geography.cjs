@@ -1,8 +1,9 @@
 const fs = require('node:fs');
-const topojson = require('D:/LekirraX/node_modules/topojson-client');
-const source = fs.readFileSync('D:/LekirraX/frontend/src/components/HostingCountriesMap.tsx', 'utf8');
-const table = source.match(/const ISO_ALPHA2_TO_NUMERIC[^=]*=\s*\{([\s\S]*?)\};/)[1];
-const byNumeric = new Map([...table.matchAll(/([A-Z]{2}):\s*'(\d+)'/g)].map(m => [m[2], m[1]]));
+const topojson = require('topojson-client');
+// The ISO table used to be scraped out of a source file in another project on
+// this machine. It now lives here so the build depends on nothing outside it.
+const table = JSON.parse(fs.readFileSync(`${__dirname}/iso-alpha2-numeric.json`, 'utf8'));
+const byNumeric = new Map(Object.entries(table).map(([alpha2, numeric]) => [numeric, alpha2]));
 const topo = JSON.parse(fs.readFileSync('threat-map/assets/countries-50m.topo.json', 'utf8'));
 const collection = topojson.feature(topo, topo.objects.countries);
 const merged = new Map();

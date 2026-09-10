@@ -6,6 +6,10 @@ dist/
 build/
 .validation/dist/
 
+# A stale copy of another project's app, kept only as reference material.
+# Nothing in the build imports it.
+.validation/full-app/
+
 # Caches
 .validation/vite-cache/
 .vite/
