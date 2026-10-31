@@ -53,6 +53,9 @@ pnpm-debug.log*
 .antigravity/
 .gemini/
 
+# Internal prompt notes and specifications
+Global_Threat_Map_Master_Prompt.md
+
 # Operating System and Editor files
 .DS_Store
 .DS_Store?
