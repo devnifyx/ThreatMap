@@ -47,9 +47,7 @@ yarn-error.log*
 pnpm-debug.log*
 
 # AI Assistant local settings and history
-.claude/settings.local.json
-.claude/run/
-.claude/history/
+.claude/
 .antigravity/
 .gemini/
 
